@@ -5,11 +5,11 @@ const adminSchema = new Schema({
     lastname: String,
     email: String,
     password: String,
-    admin: true,
+    admin: Boolean,
 }, {
     timestamps: true
 });
 
-const Admin = mongoose.Model("Admin", adminSchema);
+const Admin = mongoose.model("Admin", adminSchema);
 
 module.exports = Admin;

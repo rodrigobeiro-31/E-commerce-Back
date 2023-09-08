@@ -4,8 +4,7 @@ const Order = require("../models/Order");
 faker.locale = "es";
 
 module.exports = async () => {
-  /**
-   * Escribir código del seeder aquí...
-   */
+  const orders = [];
+  await Order.insertMany(orders);
   console.log("[Database] Se corrió el seeder de Orders.");
 };

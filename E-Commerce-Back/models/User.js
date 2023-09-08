@@ -5,13 +5,13 @@ const userSchema = new Schema({
     lastname: String,
     email: String,
     password: String,
-    admin: false,
+    admin: Boolean,
     orders: Array,
     cart: Array,
 }, {
     timestamps: true
 });
 
-const User = mongoose.Model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
