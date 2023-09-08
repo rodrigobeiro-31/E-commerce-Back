@@ -1,3 +1,11 @@
 const { mongoose, Schema } = require("../db");
 
-// Crear esquema y modelo User...
+const orderSchema = new Schema({
+    
+}, {
+    timestamps: true
+});
+
+const Order = mongoose.Model("Order", orderSchema);
+
+module.exports = Order;

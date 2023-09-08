@@ -1,3 +1,18 @@
 const { mongoose, Schema } = require("../db");
 
-// Crear esquema y modelo User...
+const productSchema = new Schema({
+    name: String,
+    price: Number,
+    description: String,
+    category: String,
+    stock: Number,
+    slug: String,
+    image: String,
+    top: Boolean
+}, {
+    timestamps: true
+});
+
+const Product = mongoose.Model("Product", productSchema);
+
+module.exports = Product;
