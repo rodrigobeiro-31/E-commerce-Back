@@ -4,28 +4,27 @@ const Product = require("../models/Product");
 faker.locale = "es";
 
 module.exports = async () => {
-  const products = []
-  const bread = new Product({
-    name: "pan",
+  const products = [{
+    name: "Pan flauta",
     price: 2.10,
-    description: "dofhaodfhaofh",
+    description: "Sumérgete en la auténtica experiencia culinaria con nuestro exquisito Pan Flauta Artesanal. Elaborado con pasión y cuidado siguiendo recetas de panadería centenarias, este pan te transportará a la tradición y el sabor inigualable de la panadería de antaño.",
     category: "panaderia",
     stock: 10,
-    slug: "pan",
-    image: "https://www.recetasderechupete.com/wp-content/uploads/2018/01/Pan-casero-f%C3%A1cil.jpg",
+    slug: "pan-flauta",
+    image: "./img/baguette.png",
     top: true
-  });
-  const coffee = new Product({
-    name: "café",
+  },
+  {
+    name: "Espresso",
     price: 1.50,
-    description: "dofhaodfhaofdfsadfsah",
+    description: "Nuestro Espresso Premium es una obra de arte en cada taza, una invitación a un mundo de sabores profundos y aromas cautivadores. Cada sorbo de este elixir oscuro es una experiencia sensorial que te transportará a los rincones más apasionantes de la cultura del café.",
     category: "cafeteria",
     stock: 20,
-    slug: "cafe",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/A_small_cup_of_coffee.JPG/1200px-A_small_cup_of_coffee.JPG",
+    slug: "espresso",
+    image: "./img/espresso.jpg",
     top: false
-  });
-  products.push(bread, coffee);
+  },
+];
   await Product.insertMany(products);
   console.log("[Database] Se corrió el seeder de Products.");
 };
