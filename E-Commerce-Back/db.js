@@ -12,6 +12,7 @@
 
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+console.log("pase por db");
 
 mongoose.connect(process.env.DB_CONNECTION_STRING, {
   useNewUrlParser: true,
