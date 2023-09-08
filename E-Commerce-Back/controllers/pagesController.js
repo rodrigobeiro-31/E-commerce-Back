@@ -17,23 +17,20 @@
  */
 
 async function showHome(req, res) {
-  res.render("pages/home");
+  res.send("hola");
 }
 
 async function showContact(req, res) {
-  res.render("pages/contact");
+
 }
 
 async function showAboutUs(req, res) {
-  res.render("pages/aboutUs");
+
 }
 
 async function show404(req, res) {
-  res.status(404).render("pages/404");
-}
 
-// Otros handlers...
-// ...
+}
 
 module.exports = {
   showHome,
