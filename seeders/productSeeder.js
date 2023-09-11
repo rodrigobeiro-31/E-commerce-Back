@@ -11,7 +11,7 @@ module.exports = async () => {
     category: "Cafe",
     stock: 10,
     slug: "espresso",
-    image: "./img/products/espresso.jpg",
+    image: "/imgs/products/espresso.jpg",
     top: true
   },
   {
@@ -21,7 +21,7 @@ module.exports = async () => {
     category: "Cafe",
     stock: 20,
     slug: "capuccino",
-    image: "./img/products/capuccino.jpg",
+    image: "/imgs/products/capuccino.jpg",
     top: false
   },
   {
@@ -31,7 +31,7 @@ module.exports = async () => {
     category: "Cafe",
     stock: 20,
     slug: "hot-chocolate",
-    image: "./img/products/hot-chocolate.jpg",
+    image: "/imgs/products/hot-chocolate.jpg",
     top: false
   },
   {
@@ -41,7 +41,7 @@ module.exports = async () => {
     category: "Cakes",
     stock: 12,
     slug: "orange-chocolate-cake",
-    image: "./img/products/orange-chocolate-cake.jpg",
+    image: "/imgs/products/orange-chocolate-cake.jpg",
     top: false
   },
   {
@@ -51,7 +51,7 @@ module.exports = async () => {
     category: "Cakes",
     stock: 8,
     slug: "apple-pie",
-    image: "./img/products/apple-pie.jpg",
+    image: "/imgs/products/apple-pie.jpg",
     top: false
   },
   {
@@ -61,7 +61,7 @@ module.exports = async () => {
     category: "Cakes",
     stock: 14,
     slug: "carrot-cake",
-    image: "./img/products/carrot-cake.jpg",
+    image: "/imgs/products/carrot-cake.jpg",
     top: false
   },
   {
@@ -71,7 +71,7 @@ module.exports = async () => {
     category: "Cakes",
     stock: 37,
     slug: "pastafrola",
-    image: "./img/products/pastafrola.jpg",
+    image: "/imgs/products/pastafrola.jpg",
     top: false
   },
   {
@@ -81,17 +81,7 @@ module.exports = async () => {
     category: "Cakes",
     stock: 29,
     slug: "strawberry-cheesecake",
-    image: "./img/products/strawberry-cheesecake.jpg",
-    top: false
-  },
-  {
-    name: "Lemon pie",
-    price: 18.30,
-    description: "Tangy and refreshing, our Lemon Pie is a zesty delight. The silky lemon custard filling and flaky crust create a perfect balance of sweet and tart.",
-    category: "Cakes",
-    stock: 25,
-    slug: "lemon-pie",
-    image: "./img/products/lemon-pie.jpg",
+    image: "/imgs/products/strawberry-cheesecake.jpg",
     top: false
   },
   {
@@ -101,7 +91,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 20,
     slug: "baguette",
-    image: "./img/products/baguette.jpg",
+    image: "/imgs/products/baguette.jpg",
     top: false
   },
   {
@@ -111,7 +101,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 27,
     slug: "croissant",
-    image: "./img/products/croissant.jpg",
+    image: "/imgs/products/croissant.jpg",
     top: true
   },
   {
@@ -121,7 +111,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 24,
     slug: "quince-pastry",
-    image: "./img/products/quince-pastry.jpg",
+    image: "/imgs/products/quince-pastry.jpg",
     top: false
   },
   {
@@ -131,7 +121,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 34,
     slug: "bougnat-bread",
-    image: "./img/products/bougnat.jpg",
+    image: "/imgs/products/bougnat.jpg",
     top: false
   },
   {
@@ -141,7 +131,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 20,
     slug: "danish",
-    image: "./img/products/danish.jpg",
+    image: "/imgs/products/danish.jpg",
     top: false
   },
   {
@@ -151,7 +141,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 50,
     slug: "apple-roll",
-    image: "./img/products/apple-roll.jpg",
+    image: "/imgs/products/apple-roll.jpg",
     top: true
   },
   {
@@ -161,7 +151,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 45,
     slug: "cinnamon-roll",
-    image: "./img/products/cinnamon-roll.jpg",
+    image: "/imgs/products/cinnamon-roll.jpg",
     top: false
   },
   {
@@ -171,7 +161,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 30,
     slug: "wholegrain-bread",
-    image: "./img/products/wholegrain-bread.jpg",
+    image: "/imgs/products/wholegrain-bread.jpg",
     top: false
   },
   {
@@ -181,18 +171,8 @@ module.exports = async () => {
     category: "Bakery",
     stock: 30,
     slug: "macatia-bread",
-    image: "./img/products/macatia.jpg",
+    image: "/imgs/products/macatia.jpg",
     top: false
-  },
-  {
-    name: "Vanilla muffin",
-    price: 1.80,
-    description: "Our Vanilla Muffin is a simple pleasure, moist and tender, with a hint of pure vanilla. It's a delightful snack or breakfast companion.",
-    category: "Bakery",
-    stock: 30,
-    slug: "vanilla-muffin",
-    image: "./img/products/",
-    top: true
   },
   {
     name: "Dark roast coffee beans",
@@ -201,7 +181,7 @@ module.exports = async () => {
     category: "Coffee beans",
     stock: 30,
     slug: "dark-roast-coffee",
-    image: "./img/products/dark-roast-coffee.jpg",
+    image: "/imgs/products/dark-roast-coffee.jpg",
     top: false
   },
   {
@@ -211,7 +191,7 @@ module.exports = async () => {
     category: "Coffee beans",
     stock: 30,
     slug: "medium-roast-coffee",
-    image: "./img/products/medium-roast-coffee.jpg",
+    image: "/imgs/products/medium-roast-coffee.jpg",
     top: true
   },
   {
@@ -221,7 +201,7 @@ module.exports = async () => {
     category: "Coffee beans",
     stock: 30,
     slug: "light-roast-coffee",
-    image: "./img/products/light-roast-coffee.jpg",
+    image: "/imgs/products/light-roast-coffee.jpg",
     top: false
   },
   
