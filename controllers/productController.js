@@ -1,17 +1,19 @@
 const Product = require("../models/Product");
 
-// Display a listing of the resource.
 async function index(req, res) {
   const products = await Product.find();
   res.json(products);
 }
 
-// Display the specified resource.
+async function showTop(req, res) {
+  const products = await Product.find({ top: true });
+  res.json(products);
+}
+
 async function show(req, res) {
   const product = await Product.find({ slug: req.params.id });
   res.json(product);
 }
-
 // Show the form for creating a new resource
 async function create(req, res) {}
 
@@ -32,6 +34,7 @@ async function destroy(req, res) {}
 
 module.exports = {
   index,
+  showTop,
   show,
   create,
   store,
