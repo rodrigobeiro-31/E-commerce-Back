@@ -11,7 +11,7 @@ module.exports = async () => {
     category: "Cafe",
     stock: 10,
     slug: "espresso",
-    image: "/imgs/products/espresso.jpg",
+    image: "/imgs/products/espresso.png",
     top: true
   },
   {
@@ -21,7 +21,7 @@ module.exports = async () => {
     category: "Cafe",
     stock: 20,
     slug: "capuccino",
-    image: "/imgs/products/capuccino.jpg",
+    image: "/imgs/products/capuccino.png",
     top: false
   },
   {
@@ -31,7 +31,7 @@ module.exports = async () => {
     category: "Cafe",
     stock: 20,
     slug: "hot-chocolate",
-    image: "/imgs/products/hot-chocolate.jpg",
+    image: "/imgs/products/hot-chocolate.png",
     top: false
   },
   {
@@ -41,7 +41,7 @@ module.exports = async () => {
     category: "Cakes",
     stock: 12,
     slug: "orange-chocolate-cake",
-    image: "/imgs/products/orange-chocolate-cake.jpg",
+    image: "/imgs/products/orange-chocolate-cake.png",
     top: false
   },
   {
@@ -51,7 +51,7 @@ module.exports = async () => {
     category: "Cakes",
     stock: 8,
     slug: "apple-pie",
-    image: "/imgs/products/apple-pie.jpg",
+    image: "/imgs/products/apple-pie.png",
     top: false
   },
   {
@@ -61,7 +61,7 @@ module.exports = async () => {
     category: "Cakes",
     stock: 14,
     slug: "carrot-cake",
-    image: "/imgs/products/carrot-cake.jpg",
+    image: "/imgs/products/carrot-cake.png",
     top: false
   },
   {
@@ -81,7 +81,7 @@ module.exports = async () => {
     category: "Cakes",
     stock: 29,
     slug: "strawberry-cheesecake",
-    image: "/imgs/products/strawberry-cheesecake.jpg",
+    image: "/imgs/products/strawberry-cheesecake.png",
     top: false
   },
   {
@@ -91,7 +91,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 20,
     slug: "baguette",
-    image: "/imgs/products/baguette.jpg",
+    image: "/imgs/products/baguette.png",
     top: false
   },
   {
@@ -101,7 +101,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 27,
     slug: "croissant",
-    image: "/imgs/products/croissant.jpg",
+    image: "/imgs/products/croissant.png",
     top: true
   },
   {
@@ -111,7 +111,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 24,
     slug: "quince-pastry",
-    image: "/imgs/products/quince-pastry.jpg",
+    image: "/imgs/products/quince-pastry.png",
     top: false
   },
   {
@@ -121,7 +121,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 34,
     slug: "bougnat-bread",
-    image: "/imgs/products/bougnat.jpg",
+    image: "/imgs/products/bougnat.png",
     top: false
   },
   {
@@ -131,7 +131,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 20,
     slug: "danish",
-    image: "/imgs/products/danish.jpg",
+    image: "/imgs/products/danish.png",
     top: false
   },
   {
@@ -141,7 +141,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 50,
     slug: "apple-roll",
-    image: "/imgs/products/apple-roll.jpg",
+    image: "/imgs/products/apple-roll.png",
     top: true
   },
   {
@@ -151,7 +151,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 45,
     slug: "cinnamon-roll",
-    image: "/imgs/products/cinnamon-roll.jpg",
+    image: "/imgs/products/cinnamon-roll.png",
     top: false
   },
   {
@@ -161,7 +161,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 30,
     slug: "wholegrain-bread",
-    image: "/imgs/products/wholegrain-bread.jpg",
+    image: "/imgs/products/wholegrain-bread.png",
     top: false
   },
   {
@@ -171,7 +171,7 @@ module.exports = async () => {
     category: "Bakery",
     stock: 30,
     slug: "macatia-bread",
-    image: "/imgs/products/macatia.jpg",
+    image: "/imgs/products/macatia.png",
     top: false
   },
   {
