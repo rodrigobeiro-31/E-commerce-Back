@@ -16,7 +16,6 @@ async function show(req, res) {
     category: product[0].category,
     slug: { $ne: req.params.id },
   });
-  console.log(products);
 
   res.json({ product, products });
 }
