@@ -71,7 +71,7 @@ module.exports = async () => {
     category: "Cakes",
     stock: 37,
     slug: "pastafrola",
-    image: "/imgs/products/pastafrola.jpg",
+    image: "/imgs/products/pastafrola.png",
     top: false
   },
   {
@@ -181,7 +181,7 @@ module.exports = async () => {
     category: "Coffee beans",
     stock: 30,
     slug: "dark-roast-coffee",
-    image: "/imgs/products/dark-roast-coffee.jpg",
+    image: "/imgs/products/dark-roast-coffee.png",
     top: false
   },
   {
@@ -191,7 +191,7 @@ module.exports = async () => {
     category: "Coffee beans",
     stock: 30,
     slug: "medium-roast-coffee",
-    image: "/imgs/products/medium-roast-coffee.jpg",
+    image: "/imgs/products/medium-roast-coffee.png",
     top: true
   },
   {
@@ -201,7 +201,7 @@ module.exports = async () => {
     category: "Coffee beans",
     stock: 30,
     slug: "light-roast-coffee",
-    image: "/imgs/products/light-roast-coffee.jpg",
+    image: "/imgs/products/light-roast-coffee.png",
     top: false
   },
   
