@@ -12,11 +12,13 @@ async function showTop(req, res) {
 
 async function show(req, res) {
   const product = await Product.find({ slug: req.params.id });
-  const products =await Product.find({category:product[0].category})
- console.log(product)
- console.log(req.params.id)
- 
-  res.json({product, products});
+  const products = await Product.find({
+    category: product[0].category,
+    slug: { $ne: req.params.id },
+  });
+  console.log(products);
+
+  res.json({ product, products });
 }
 
 // Show the form for creating a new resource
