@@ -22,7 +22,11 @@ async function edit(req, res) {}
 async function update(req, res) {}
 
 // Remove the specified resource from storage.
-async function destroy(req, res) {}
+async function destroy(req, res) {
+  console.log(req.params);
+  await User.findByIdAndRemove(req.params.id);
+  res.json("Usuario eliminado!");
+}
 
 // Otros handlers...
 // ...
