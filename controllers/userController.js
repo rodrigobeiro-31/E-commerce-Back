@@ -2,7 +2,10 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
 // Display a listing of the resource.
-async function index(req, res) { }
+async function index(req, res) {
+  const users = await User.find();
+  res.json(users);
+}
 
 // Display the specified resource.
 async function show(req, res) { }
