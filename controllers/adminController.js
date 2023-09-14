@@ -5,6 +5,7 @@ async function indexProducts(req, res) {
   const products = await Product.find();
   res.json(products);
 }
+
 async function indexUsers(req, res) {
   const user = await User.find();
   res.json(user);
