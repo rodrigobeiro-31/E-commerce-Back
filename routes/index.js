@@ -10,6 +10,6 @@ module.exports = (app) => {
   // app.use("/usuarios", userRoutes);
   app.use("/products", productRoutes);
   app.use("/users", userRoutes);
-  app.use("/", publicRoutes);
   app.use("/admin", adminRoutes);
+  app.use("/", publicRoutes);
 };
