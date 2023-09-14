@@ -2,13 +2,14 @@ const Product = require("../models/Product");
 const User = require("../models/User");
 
 async function indexProducts(req, res) {
+  console.log("pase por indexProducts");
   const products = await Product.find();
   res.json(products);
 }
 
 async function indexUsers(req, res) {
-  const user = await User.find();
-  res.json(user);
+  const users = await User.find();
+  res.json(users);
 }
 
 async function showTop(req, res) {
@@ -45,7 +46,6 @@ async function destroy(req, res) {}
 // ...
 
 module.exports = {
-  index,
   indexUsers,
   indexProducts,
   showTop,
