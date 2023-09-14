@@ -2,12 +2,8 @@ const Product = require("../models/Product");
 
 async function index(req, res) {
   const products = await Product.find();
-  res.json(products);
-}
-
-async function showTop(req, res) {
-  const products = await Product.find({ top: true });
-  res.json(products);
+  const topProducts = await Product.find({ top: true });
+  res.json({ products, topProducts });
 }
 
 async function show(req, res) {
@@ -40,7 +36,6 @@ async function destroy(req, res) {}
 
 module.exports = {
   index,
-  showTop,
   show,
   create,
   store,
