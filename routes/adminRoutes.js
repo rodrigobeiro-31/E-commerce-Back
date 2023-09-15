@@ -4,7 +4,7 @@ const adminController = require("../controllers/adminController");
 
 router.post("/token", adminController.tokens);
 router.get("/:params", adminController.index);
-router.post("/:params", adminController.create);
+router.get("/:params/info", adminController.create);
 // router.get("/:id", userController.show);
 // router.post("/", userController.store);
 // router.get("/editar/:id", userController.edit);
