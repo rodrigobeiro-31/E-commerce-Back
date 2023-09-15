@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/adminController");
 
-router.get("/users", adminController.indexUsers);
-router.get("/products", adminController.indexProducts);
-// router.get("/crear", userController.create);
+router.post("/token", adminController.tokens);
+router.get("/:params", adminController.index);
+router.post("/:params", adminController.create);
 // router.get("/:id", userController.show);
 // router.post("/", userController.store);
 // router.get("/editar/:id", userController.edit);

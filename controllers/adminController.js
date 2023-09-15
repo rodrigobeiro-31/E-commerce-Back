@@ -1,15 +1,26 @@
 const Product = require("../models/Product");
 const User = require("../models/User");
+const mongoose = require("mongoose");
 
-async function indexProducts(req, res) {
-  console.log("pase por indexProducts");
-  const products = await Product.find();
-  res.json(products);
+async function tokens(req, res) {
+  console.log("paso por crate");
+  const token = req.body;
+  res.json({ token });
 }
 
-async function indexUsers(req, res) {
-  const users = await User.find();
-  res.json(users);
+async function index(req, res) {
+  const data = req.params;
+  const model = data.params;
+  const Modelo = mongoose.model(model);
+  const resp = await Modelo.find();
+  res.json(resp);
+}
+
+async function create(req, res) {
+  const data = req.params;
+  const model = data.params;
+  const Modelo = mongoose.model(model);
+  const resp = await Modelo.find();
 }
 
 async function showTop(req, res) {
@@ -46,8 +57,9 @@ async function destroy(req, res) {}
 // ...
 
 module.exports = {
-  indexUsers,
-  indexProducts,
+  index,
+
+  tokens,
   showTop,
   show,
   create,
