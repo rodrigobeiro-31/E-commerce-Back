@@ -17,13 +17,13 @@ const authController = {
     if (!verifyPass) return res.json({ error: "Wrong credentials..." });
 
     //Genero token
-    const token = jwt.sign(
-      { sub: user.id, username: user.username },
-      process.env.JWT_SECRET
-    );
-
+    const token = jwt.sign({ sub: user.id, username: user.username }, process.env.JWT_SECRET);
+    const userInfo = {
+      id: user.id,
+      cart: user.cart,
+    };
     //Respondo con el token a la llamada
-    res.json({ token, user });
+    res.json({ token: token, userInfo });
   },
 };
 
