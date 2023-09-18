@@ -5,7 +5,6 @@ const bcrypt = require("bcryptjs");
 const authController = {
   tokens: async (req, res) => {
     console.log(req.body);
-    console.log("paso por tokens");
     //Verificar usuario en DB
     const user = await User.findOne({ email: req.body.email });
 
@@ -17,13 +16,8 @@ const authController = {
     if (!verifyPass) return res.json({ error: "Wrong credentials..." });
 
     //Genero token
-    const token = jwt.sign({ sub: user.id, username: user.username }, process.env.JWT_SECRET);
-    const userInfo = {
-      id: user.id,
-      cart: user.cart,
-    };
-    //Respondo con el token a la llamada
-    res.json({ token: token, userInfo });
+    const token = jwt.sign({ sub: user.id, email: user.email }, process.env.JWT_SECRET);
+    res.json({ token: token});
   },
 };
 

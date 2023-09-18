@@ -5,4 +5,6 @@ const { expressjwt: checkJwt } = require("express-jwt");
 
 router.use(checkJwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }));
 
+router.post("/", orderController.store);
+
 module.exports = router;
