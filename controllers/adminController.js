@@ -2,6 +2,8 @@ const Product = require("../models/Product");
 const User = require("../models/User");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const formidable = require("formidable");
+const fs = require("fs");
 
 async function tokens(req, res) {
   console.log("paso por crate");
@@ -28,17 +30,21 @@ async function destroy(req, res) {
 }
 
 async function create(req, res) {
-  const { firstname, lastname, email, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const user = new User({
-    firstname,
-    lastname,
-    email,
-    password: hashedPassword,
+  console.log("entre a crate =>");
+  const recibo = req.body;
+  const model = req.params.model;
+  const form = formidable({
+    multiples: true,
+    keepExt: true,
+    directory: "/imgs/product",
   });
-  console.log(user);
-  const rep = await user.save();
-  return res.json(rep);
+
+  form.parse(req, (err, fields, files) => {
+    console.log("fields:", fields);
+    console.log("files:", files);
+  });
+
+  return res.json("ok");
 }
 
 async function store(req, res) {
