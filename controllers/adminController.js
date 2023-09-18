@@ -58,18 +58,15 @@ async function edit(req, res) {}
 // Update the specified resource in storage.router.patch("/:model/:id/:patch", adminController.update
 
 async function update(req, res) {
-  const update = req.body;
+  const update = req.body.sendInfo;
   const data = req.params;
   const model = req.params.model;
   const id = req.params.id;
   console.log({ data, update, id });
   const Modelo = mongoose.model(model);
-  // const resp = await Modelo.find(id);
-  res.json({ data, model, update, id });
+  const resp = await Modelo.findByIdAndUpdate(id, update);
+  res.json({ resp });
 }
-
-// Otros handlers...
-// ...
 
 module.exports = {
   index,
