@@ -9,7 +9,7 @@ module.exports = (app) => {
   app.use("/", authRoutes);
   app.use("/users", userRoutes);
   app.use("/products", productRoutes);
-  app.use("/order", orderRoutes);
+  app.use("/orders", orderRoutes);
   app.use("/users", userRoutes);
   app.use("/admin", adminRoutes);
   app.use("/", publicRoutes);
