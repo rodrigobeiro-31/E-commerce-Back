@@ -27,17 +27,6 @@ async function destroy(req, res) {
   res.json({ resp });
 }
 
-async function store(req, res) {
-  console.log(req.params);
-  const model = req.params.model;
-  const id = req.params.id;
-  console.log(model, id);
-  const Model = mongoose.model(model);
-  const resp = await Model.findByIdAndUpdate(id, { $inc: { stock: +1 } }, { new: true }); // Utiliza $inc para decrementar en 1
-  res.json({ resp });
-}
-//store guarda nuevos productos y create crea a nuevos usuarios.
-
 async function create(req, res) {
   const { firstname, lastname, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -52,11 +41,32 @@ async function create(req, res) {
   return res.json(rep);
 }
 
+async function store(req, res) {
+  console.log(req.params);
+  const model = req.params.model;
+  const id = req.params.id;
+  console.log(model, id);
+  const Model = mongoose.model(model);
+  const resp = await Model.findByIdAndUpdate(id, { $inc: { stock: +1 } }, { new: true }); // Utiliza $inc para sumar en 1
+  res.json({ resp });
+}
+//store guarda nuevos productos y create crea a nuevos usuarios.
+
 // Show the form for editing the specified resource.
 async function edit(req, res) {}
 
-// Update the specified resource in storage.
-async function update(req, res) {}
+// Update the specified resource in storage.router.patch("/:model/:id/:patch", adminController.update
+
+async function update(req, res) {
+  const update = req.body;
+  const data = req.params;
+  const model = req.params.model;
+  const id = req.params.id;
+  console.log({ data, update, id });
+  const Modelo = mongoose.model(model);
+  // const resp = await Modelo.find(id);
+  res.json({ data, model, update, id });
+}
 
 // Otros handlers...
 // ...
