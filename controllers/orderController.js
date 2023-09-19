@@ -3,7 +3,10 @@ const User = require("../models/User");
 const Order = require("../models/Order");
 
 // Display a listing of the resource.
-async function index(req, res) { }
+async function index(req, res) {
+  const orders = await Order.find()
+  return res.json(orders)
+ }
 
 // Display the specified resource.
 async function show(req, res) { }
@@ -47,7 +50,10 @@ async function store(req, res) {
 async function edit(req, res) { }
 
 // Update the specified resource in storage.
-async function update(req, res) { }
+async function update(req, res) {
+const order = await Order.findByIdAndUpdate(req.params.id, {status:req.body.status})
+return res.json(order)
+ }
 
 // Remove the specified resource from storage.
 async function destroy(req, res) { }

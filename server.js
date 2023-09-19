@@ -4,12 +4,7 @@ const methodOverride = require("method-override");
 const express = require("express");
 const routes = require("./routes");
 const cors = require("cors");
-const { createClient } = require("@supabase/supabase-js");
 
-const supabase = createClient(
- process.env.SUPABASE_URL,
- process.env.SUPABASE_KEY
-);
 
 const APP_PORT = process.env.APP_PORT || 3000;
 const app = express();
