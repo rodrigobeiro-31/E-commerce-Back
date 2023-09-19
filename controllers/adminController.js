@@ -38,7 +38,6 @@ async function create(req, res) {
     keepExt: true,
     directory: "",
   });
-  const formUpload = __dirname;
 
   form.parse(req, (err, fields, files) => {
     console.log("fields:", fields);
@@ -47,12 +46,10 @@ async function create(req, res) {
     const image = files.image;
     const imagePath = image.filepath;
     // Obtén la extensión del archivo original
-
     const fileExtension = image.originalFilename.split(".").pop();
     // Genera un nombre único para el archivo
     const uniqueFileName = `${Date.now()}.${fileExtension}`;
     // Construye la ruta completa del archivo en el disco
-    const destinationPath = `${formUpload}/${uniqueFileName}`;
     const directorioDestino = path.join(__dirname, "../public/imgs/product"); // Dos niveles arriba del __dirname
     const archivoDestino = path.join(directorioDestino, uniqueFileName);
     fs.rename(imagePath, archivoDestino, (err) => {
@@ -61,7 +58,8 @@ async function create(req, res) {
         return;
       }
     });
-
+    fields.image = archivoDestino;
+    console.log("afuera de la func =>", fields);
     res.json("ok");
   });
 }
