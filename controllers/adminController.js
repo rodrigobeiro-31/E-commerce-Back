@@ -42,9 +42,6 @@ async function create(req, res) {
   });
 
   form.parse(req, async (err, fields, files) => {
-    console.log("fields:", fields);
-    console.log("files:", files);
-    console.log("filepath=>", files.image.filepath);
     const ext = path.extname(files.image.filepath);
     const newFileName = `image_${Date.now()}${ext}`;
     const { data, error } = await supabase.storage
@@ -54,65 +51,12 @@ async function create(req, res) {
         upsert: false,
         contentType: files.image.mimetype,
       });
-// const product = await Product.create({  
-//   name: fields.name,
-//   price:fields.price,
-//   description: fields.description,
-//   category: fields.category,
-//   stock: fields.stock,
-//   // slug: fields.slug,
-//   image: fields.image,
-//   top: fields.top,})
-    
+    const Modelo = mongoose.model(model);
+    fields.image = newFileName;
+    const resp = await Modelo.insertMany({ ...fields });
+    console.log(resp);
   });
-  // const model = req.params.model;
-  // const form = formidable({
-  //   multiples: true,
-  //   keepExt: true,
-  //   directory: "",
-  // });
 
-  // form.parse(req, async (err, fields, files) => {
-  //   console.log("Aca esta fields", fields);
-  //   console.log("Aca esta files", files);
-  //   const image = files.image;
-  //   const imagePath = image.image.filepath;
-  //   const ext = path.extname(files.imagePath);
-  //   console.log("imagepath", imagePath);
-  //   const newFileName = `image_${Date.now()}${ext}`;
-  //   const { data, error } = await supabase.storage
-  //     .from("products")
-  //     .upload(newFileName, fs.createReadStream(files.products.filepath), {
-  //       cacheControl: "3600",
-  //       upsert: false,
-  //       contentType: files.products.mimetype,
-  //     });
-  //   // ...
-  // });
-
-  // form.parse(req, (err, fields, files) => {
-  //   console.log("fields:", fields);
-  //   console.log("files:", files);
-
-  //   const image = files.image;
-  //   const imagePath = image.filepath;
-  //   // Obtén la extensión del archivo original
-  //   const fileExtension = image.originalFilename.split(".").pop();
-  //   // Genera un nombre único para el archivo
-  //   const uniqueFileName = `${Date.now()}.${fileExtension}`;
-  //   // Construye la ruta completa del archivo en el disco
-  //   const directorioDestino = path.join(__dirname, "../public/imgs/product"); // Dos niveles arriba del __dirname
-  //   const archivoDestino = path.join(directorioDestino, uniqueFileName);
-  //   // fs.rename(imagePath, archivoDestino, (err) => {
-  //   //   if (err) {
-  //   //     res.status(500).json({ error: "Error al guardar la imagen en el disco" });
-  //   //     return;
-  //   //   }
-  //   // });
-  //   fields.image = archivoDestino;
-  //   console.log("afuera de la func =>", fields);
-
-  // });
   res.json("ok");
 }
 
