@@ -58,26 +58,6 @@ async function create(req, res) {
   });
 }
 
-//     const image = files.image;
-//     const imagePath = image.filepath;
-//     // Obtén la extensión del archivo original
-//     const fileExtension = image.originalFilename.split(".").pop();
-//     // Genera un nombre único para el archivo
-//     const uniqueFileName = `${Date.now()}.${fileExtension}`;
-//     // Construye la ruta completa del archivo en el disco
-//     const directorioDestino = path.join(__dirname, "../public/imgs/product"); // Dos niveles arriba del __dirname
-//     const archivoDestino = path.join(directorioDestino, uniqueFileName);
-//     fs.rename(imagePath, archivoDestino, (err) => {
-//       if (err) {
-//         res.status(500).json({ error: "Error al guardar la imagen en el disco" });
-//         return;
-//       }
-//     });
-//     console.log("afuera de la func =>", fields);
-//     res.json("ok");
-//   });
-// }
-
 async function store(req, res) {
   console.log(req.params);
   const model = req.params.model;
