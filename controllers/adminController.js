@@ -6,6 +6,7 @@ const formidable = require("formidable");
 const fs = require("fs");
 const path = require("path");
 const { dirname } = require("path");
+const { createClient } = require("@supabase/supabase-js");
 
 async function tokens(req, res) {
   console.log("paso por crate");
@@ -33,38 +34,49 @@ async function destroy(req, res) {
 
 async function create(req, res) {
   const model = req.params.model;
+
+  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
   const form = formidable({
     multiples: true,
     keepExt: true,
     directory: "",
   });
 
-  form.parse(req, (err, fields, files) => {
+  form.parse(req, async (err, fields, files) => {
     console.log("fields:", fields);
     console.log("files:", files);
-
-    const image = files.image;
-    const imagePath = image.filepath;
-    // Obtén la extensión del archivo original
-    const fileExtension = image.originalFilename.split(".").pop();
-    // Genera un nombre único para el archivo
-    const uniqueFileName = `${Date.now()}.${fileExtension}`;
-    // Construye la ruta completa del archivo en el disco
-    const dir = "../public/imgs/product";
-    const directorioDestino = path.join(__dirname, "../public/imgs/product"); // Dos niveles arriba del __dirname
-    const archivoDestino = path.join(directorioDestino, uniqueFileName);
-    fs.rename(imagePath, archivoDestino, (err) => {
-      if (err) {
-        res.status(500).json({ error: "Error al guardar la imagen en el disco" });
-        return;
-      }
-    });
-
-    fields.image = "/img/product/" + uniqueFileName;
-    console.log("afuera de la func =>", fields);
-    res.json("ok");
+    console.log("filepath=>", files.image.filepath);
+    const ext = path.extname(files.image.filepath);
+    const newFileName = `image_${Date.now()}${ext}`;
+    const { data, error } = await supabase.storage
+      .from("products")
+      .upload(newFileName, fs.createReadStream(files.image.filepath), {
+        cacheControl: "3600",
+        upsert: false,
+        contentType: files.image.mimetype,
+      });
   });
 }
+
+//     const image = files.image;
+//     const imagePath = image.filepath;
+//     // Obtén la extensión del archivo original
+//     const fileExtension = image.originalFilename.split(".").pop();
+//     // Genera un nombre único para el archivo
+//     const uniqueFileName = `${Date.now()}.${fileExtension}`;
+//     // Construye la ruta completa del archivo en el disco
+//     const directorioDestino = path.join(__dirname, "../public/imgs/product"); // Dos niveles arriba del __dirname
+//     const archivoDestino = path.join(directorioDestino, uniqueFileName);
+//     fs.rename(imagePath, archivoDestino, (err) => {
+//       if (err) {
+//         res.status(500).json({ error: "Error al guardar la imagen en el disco" });
+//         return;
+//       }
+//     });
+//     console.log("afuera de la func =>", fields);
+//     res.json("ok");
+//   });
+// }
 
 async function store(req, res) {
   console.log(req.params);
