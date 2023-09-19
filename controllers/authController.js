@@ -17,7 +17,7 @@ const authController = {
 
     //Genero token
     const token = jwt.sign({ sub: user.id, email: user.email }, process.env.JWT_SECRET);
-    res.json({ token: token});
+    res.json({ token: token, id:user._id});
   },
 };
 
