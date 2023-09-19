@@ -50,6 +50,7 @@ async function create(req, res) {
     // Genera un nombre único para el archivo
     const uniqueFileName = `${Date.now()}.${fileExtension}`;
     // Construye la ruta completa del archivo en el disco
+    const dir = "../public/imgs/product";
     const directorioDestino = path.join(__dirname, "../public/imgs/product"); // Dos niveles arriba del __dirname
     const archivoDestino = path.join(directorioDestino, uniqueFileName);
     fs.rename(imagePath, archivoDestino, (err) => {
@@ -58,7 +59,8 @@ async function create(req, res) {
         return;
       }
     });
-    fields.image = archivoDestino;
+
+    fields.image = "/img/product/" + uniqueFileName;
     console.log("afuera de la func =>", fields);
     res.json("ok");
   });
