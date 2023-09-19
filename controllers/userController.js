@@ -8,7 +8,10 @@ async function index(req, res) {
 }
 
 // Display the specified resource.
-async function show(req, res) {}
+async function show(req, res) {
+  const user = await User.findById(req.params.id);
+  return res.json(user);
+}
 
 // Show the form for creating a new resource
 async function create(req, res) {}
@@ -23,7 +26,6 @@ async function store(req, res) {
     email,
     password: hashedPassword,
   });
-  console.log(user);
   await user.save();
   return res.json(user);
 }
@@ -32,7 +34,28 @@ async function store(req, res) {
 async function edit(req, res) {}
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) {
+  const id = { _id: req.params.id };
+  const update = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+  };
+  const user = await User.findOneAndUpdate(id, update, { returnOriginal: false });
+
+  if (req.body.password.length > 0) {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const updatePass = await User.findOneAndUpdate(
+      id,
+      {
+        password: hashedPassword,
+      },
+      { returnOriginal: false },
+    );
+  }
+
+  return res.json("Usuario actualizado");
+}
 
 // Remove the specified resource from storage.
 async function destroy(req, res) {
