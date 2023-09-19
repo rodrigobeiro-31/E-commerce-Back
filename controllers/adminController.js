@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const formidable = require("formidable");
 const fs = require("fs");
+const path = require("path");
+const { dirname } = require("path");
 
 async function tokens(req, res) {
   console.log("paso por crate");
@@ -30,21 +32,38 @@ async function destroy(req, res) {
 }
 
 async function create(req, res) {
-  console.log("entre a crate =>");
-  const recibo = req.body;
   const model = req.params.model;
   const form = formidable({
     multiples: true,
     keepExt: true,
-    directory: "/imgs/product",
+    directory: "",
   });
+  const formUpload = __dirname;
 
   form.parse(req, (err, fields, files) => {
     console.log("fields:", fields);
     console.log("files:", files);
-  });
 
-  return res.json("ok");
+    const image = files.image;
+    const imagePath = image.filepath;
+    // Obtén la extensión del archivo original
+
+    const fileExtension = image.originalFilename.split(".").pop();
+    // Genera un nombre único para el archivo
+    const uniqueFileName = `${Date.now()}.${fileExtension}`;
+    // Construye la ruta completa del archivo en el disco
+    const destinationPath = `${formUpload}/${uniqueFileName}`;
+    const directorioDestino = path.join(__dirname, "../public/imgs/product"); // Dos niveles arriba del __dirname
+    const archivoDestino = path.join(directorioDestino, uniqueFileName);
+    fs.rename(imagePath, archivoDestino, (err) => {
+      if (err) {
+        res.status(500).json({ error: "Error al guardar la imagen en el disco" });
+        return;
+      }
+    });
+
+    res.json("ok");
+  });
 }
 
 async function store(req, res) {
