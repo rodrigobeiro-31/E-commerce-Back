@@ -38,7 +38,8 @@ async function store(req, res) {
 
   const order = await new Order({
     _id: orderId,
-    user: { userId, email },
+    userEmail: email,
+    userId: userId,
     cart: productsSelected,
     status: "Received",
     totalPrice: orderPrice,

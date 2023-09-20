@@ -7,14 +7,16 @@ module.exports = async () => {
   const orders = [
     {
       _id: "0001",
-      user: { userId: "22", email: "juan@juan.com" },
-      cart: [{ price: 1, name: "esprsso", quantity: 2 }],
+      userEmail: "juan@juan.com",
+      userId: "23",
+      cart: [{ price: 1, name: "espresso", quantity: 2 }],
       status: "pending",
       totalPrice: 2,
     },
     {
       _id: "0002",
-      user: { userId: "22", email: "Maria@maria.com" },
+      userEmail: "Maria@maria.com",
+      userId: "22",
       cart: [{ price: 2, name: "danish", quantity: 4 }],
       status: "delivered",
       totalPrice: 10,
