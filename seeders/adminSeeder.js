@@ -2,18 +2,24 @@ const Admin = require("../models/Admin");
 const bcrypt = require("bcryptjs");
 
 module.exports = async () => {
-  const admins = [];
   const encryptedPassword = await bcrypt.hash("1234", 10);
-  const admin = {
-    firstname: "Admin",
-    lastname: "Istrador",
-    email: "admin@admin.com",
-    password: encryptedPassword,
-    admin: true,
-  };
-  admins.push(admin);
+  const encryptedPassword2 = await bcrypt.hash("1234", 10);
+  const admins = [
+    {
+      firstname: "First",
+      lastname: "Admin",
+      email: "first@admin.com",
+      password: encryptedPassword,
+      admin: true,
+    },
+    {
+      firstname: "Second",
+      lastname: "Admin",
+      email: "second@admin.com",
+      password: encryptedPassword2,
+      admin: true,
+    },
+  ];
   await Admin.insertMany(admins);
   console.log("[Database] Se corrió el seeder de Admins.");
 };
-
-

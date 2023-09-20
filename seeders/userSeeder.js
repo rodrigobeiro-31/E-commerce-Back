@@ -16,10 +16,9 @@ module.exports = async () => {
       password: encryptedPassword,
       admin: false,
       orders: [],
-      cart: [],
-    })
+    });
     users.push(user);
-  };
+  }
   await User.insertMany(users);
   console.log("[Database] Se corrió el seeder de Users.");
 };

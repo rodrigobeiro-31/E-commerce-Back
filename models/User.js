@@ -1,16 +1,18 @@
 const { mongoose, Schema } = require("../db");
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     firstname: String,
     lastname: String,
     email: String,
     password: String,
     admin: Boolean,
     orders: Array,
-    cart: Array,
-}, {
-    timestamps: true
-});
+  },
+  {
+    timestamps: true,
+  },
+);
 
 const User = mongoose.model("User", userSchema);
 
