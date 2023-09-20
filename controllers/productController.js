@@ -3,7 +3,7 @@ const Product = require("../models/Product");
 async function index(req, res) {
   const products = await Product.find();
   const topProducts = await Product.find({ top: true });
-  res.json({ products, topProducts });
+  return res.json({ products, topProducts });
 }
 
 async function show(req, res) {
@@ -13,7 +13,7 @@ async function show(req, res) {
     slug: { $ne: req.params.id },
   });
 
-  res.json({ product, products });
+  return res.json({ product, products });
 }
 
 // Show the form for creating a new resource
