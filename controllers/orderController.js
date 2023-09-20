@@ -9,7 +9,10 @@ async function index(req, res) {
 }
 
 // Display the specified resource.
-async function show(req, res) {}
+async function show(req, res) {
+  const orders = await Order.find({ userId: req.params.id });
+  return res.json({ orders });
+}
 
 // Show the form for creating a new resource
 async function create(req, res) {}
@@ -41,7 +44,7 @@ async function store(req, res) {
     userEmail: email,
     userId: userId,
     cart: productsSelected,
-    status: "Received",
+    status: "Pending",
     totalPrice: orderPrice,
   });
   await order.save();
