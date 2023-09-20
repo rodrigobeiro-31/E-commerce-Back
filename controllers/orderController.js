@@ -44,7 +44,7 @@ async function store(req, res) {
     userEmail: email,
     userId: userId,
     cart: productsSelected,
-    status: "Received",
+    status: "Pending",
     totalPrice: orderPrice,
   });
   await order.save();
