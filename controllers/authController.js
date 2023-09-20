@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Admin = require("../models/Admin");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -17,7 +18,26 @@ const authController = {
 
     //Genero token
     const token = jwt.sign({ sub: user.id, email: user.email }, process.env.JWT_SECRET);
-    res.json({ token: token});
+    res.json({ token: token });
+  },
+
+  admin: async (req, res) => {
+    //Verificar usuario en DB
+    const admin = await Admin.findOne({ email: req.body.email });
+
+    if (!admin) return res.json({ error: "Wrong credentials..." });
+
+    // Verificar si es admin
+    if (!admin.admin) return res.json({ error: "You're not an admin!" });
+
+    //Verificar contraseña (la contraseña en db hace match con la recibida)
+    const verifyPass = await bcrypt.compare(req.body.password, admin.password);
+
+    if (!verifyPass) return res.json({ error: "Wrong credentials..." });
+
+    //Genero token
+    const token = jwt.sign({ sub: admin.id, email: admin.email }, process.env.JWT_SECRET);
+    res.json({ token: token, firstname: admin.firstname, lastname: admin.lastname });
   },
 };
 
