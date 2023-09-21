@@ -23,9 +23,9 @@ async function store(req, res) {
   const userId = req.auth.sub;
   const email = req.auth.email;
 
-  for (const id of cart) {
-    const productId = id._id;
-    const quantity = id.quantity;
+  for (const product of cart) {
+    const productId = product._id;
+    const quantity = product.quantity;
     await Product.findByIdAndUpdate(productId, { $inc: { stock: -quantity } });
   }
 

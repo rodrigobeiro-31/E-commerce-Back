@@ -19,6 +19,13 @@ module.exports = async () => {
       password: encryptedPassword2,
       admin: true,
     },
+    {
+      firstname: "Admin",
+      lastname: "Test",
+      email: "admin@doppios.com",
+      password: encryptedPassword2,
+      admin: true,
+    },
   ];
   await Admin.insertMany(admins);
   console.log("[Database] Se corrió el seeder de Admins.");
