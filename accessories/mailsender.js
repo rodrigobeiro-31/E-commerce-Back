@@ -20,7 +20,7 @@ async function Mail(origin, subject) {
         <body>
           <p>Hola, este es un correo con un botón por que algun banana se olvido la clave</p>
           <a href="https://www.ejemplo.com ">
-            <button>chupate esta, doppio</button>
+            <button> doppios </button>
           </a>
         </body>
       </html>`,
