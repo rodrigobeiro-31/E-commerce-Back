@@ -1,9 +1,19 @@
+const { json } = require("express");
 const Product = require("../models/Product");
 
 async function index(req, res) {
   const products = await Product.find();
-  const topProducts = await Product.find({ top: true });
-  return res.json({ products, topProducts });
+  let filteredProducts = products;
+
+  if (req.params.category === "top") {
+    filteredProducts = products.filter((product) => product.top === true);
+    return res.json(filteredProducts);
+  };
+  if (req.params.category !== "All") {
+    filteredProducts = products.filter((product) => product.category === req.params.category);
+    return res.json(filteredProducts);
+  };
+  return res.json(filteredProducts);
 }
 
 async function show(req, res) {
@@ -17,19 +27,19 @@ async function show(req, res) {
 }
 
 // Show the form for creating a new resource
-async function create(req, res) {}
+async function create(req, res) { }
 
 // Store a newly created resource in storage.
-async function store(req, res) {}
+async function store(req, res) { }
 
 // Show the form for editing the specified resource.
-async function edit(req, res) {}
+async function edit(req, res) { }
 
 // Update the specified resource in storage.
-async function update(req, res) {}
+async function update(req, res) { }
 
 // Remove the specified resource from storage.
-async function destroy(req, res) {}
+async function destroy(req, res) { }
 
 // Otros handlers...
 // ...
