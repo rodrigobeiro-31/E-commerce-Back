@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const Admin = require("../models/Admin");
 const User = require("../models/User");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
@@ -14,6 +15,12 @@ async function tokens(req, res) {
   res.json({ token });
 }
 
+async function indexAdmin(req, res) {
+  const admins = await Admin.find();
+  const filteredAdmins = admins.filter((admin) => admin.email !== "admin@doppios.com");
+  console.log(filteredAdmins);
+  return res.json(filteredAdmins);
+}
 async function index(req, res) {
   const data = req.params;
   const model = data.params;
@@ -106,6 +113,7 @@ async function update(req, res) {
 // Update the specified resource in storage.router.patch("/:model/:id/:patch", adminController.update
 
 module.exports = {
+  indexAdmin,
   index,
   create,
   tokens,
