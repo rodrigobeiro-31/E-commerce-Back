@@ -75,34 +75,39 @@ async function store(req, res) {
 async function edit(req, res) {}
 
 async function update(req, res) {
-  const model = req.params.model;
-  const id = req.params.id;
-  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-  const form = formidable({
-    multiples: true,
-    keepExtensions: true,
-  });
-  // const update = req.body.sendInfo;
-  // const data = req.params;
-  form.parse(req, async (err, fields, files) => {
-    const ext = path.extname(files.image.filepath);
-    const newFileName = `image_${Date.now()}${ext}`;
-    const { data, error } = await supabase.storage
-      .from("products")
-      .upload(newFileName, fs.createReadStream(files.image.filepath), {
-        cacheControl: "3600",
-        upsert: false,
-        contentType: files.image.mimetype,
-      });
+  try {
+    const model = req.params.model;
+    const id = req.params.id;
+    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+    const form = formidable({
+      multiples: true,
+      keepExtensions: true,
+    });
+    // const update = req.body.sendInfo;
+    // const data = req.params;
+    form.parse(req, async (err, fields, files) => {
+      const ext = path.extname(files.image.filepath);
+      const newFileName = `image_${Date.now()}${ext}`;
+      const { data, error } = await supabase.storage
+        .from("products")
+        .upload(newFileName, fs.createReadStream(files.image.filepath), {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: files.image.mimetype,
+        });
 
-    fields.image = newFileName;
-    const Modelo = mongoose.model(model);
-    const resp = await Modelo.findByIdAndUpdate(id, { ...fields });
+      fields.image = newFileName;
+      const Modelo = mongoose.model(model);
+      const resp = await Modelo.findByIdAndUpdate(id, { ...fields });
 
-    console.log(resp);
-  });
+      console.log(resp);
+    });
+  } catch (error) {
+    cosole.log(error);
+  }
   res.json("ok");
 }
+
 // Update the specified resource in storage.router.patch("/:model/:id/:patch", adminController.update
 
 module.exports = {
