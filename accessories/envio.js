@@ -1,8 +1,7 @@
 const Mail = require("./mailsender.js");
 require("dotenv").config();
 
-const a = "jsiutto@gmail.com"; //destino
+const a = "jsiutto@gmail.com"; //destino ponele node envio.js desde accessories
 const b = "prueba 4"; //titulo
-const c = "va texto de prueba desde el mail 4"; // texto
 
-Mail(a, b, c);
+Mail(a, b);

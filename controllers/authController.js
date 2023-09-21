@@ -2,6 +2,7 @@ const User = require("../models/User");
 const Admin = require("../models/Admin");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const Mail = require("../accessories/mailsender");
 
 const authController = {
   tokens: async (req, res) => {
@@ -19,6 +20,14 @@ const authController = {
     //Genero token
     const token = jwt.sign({ sub: user.id, email: user.email }, process.env.JWT_SECRET);
     res.json({ token: token, id: user._id });
+  },
+  mail: async (req, res) => {
+    //email
+    const mail = req.body.mail;
+    const subject = "cambio de contraseña de Doppios";
+    const text = " zapallo , para cambiar la clave toca aca ";
+
+    Mail(mail, subject, c);
   },
 
   admin: async (req, res) => {
