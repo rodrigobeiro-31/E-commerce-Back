@@ -37,7 +37,11 @@ async function create(req, res) {}
 // Store a newly created resource in storage.
 async function store(req, res) {
   try {
-    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY, {
+      auth: {
+        persistSession: false,
+      },
+    });
     const form = formidable({
       multiples: true,
       keepExtensions: true,
@@ -69,7 +73,11 @@ async function edit(req, res) {}
 // Update the specified resource in storage.
 async function update(req, res) {
   const id = req.params.id;
-  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY, {
+    auth: {
+      persistSession: false,
+    },
+  });
   const form = formidable({
     multiples: true,
     keepExtensions: true,
@@ -109,7 +117,11 @@ async function destroy(req, res) {
     const id = req.params.id;
     const image = req.body.image;
 
-    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY, {
+      auth: {
+        persistSession: false,
+      },
+    });
     const { data, error } = await supabase.storage.from("products").remove([`${image}`]);
     const resMongo = await Product.findByIdAndDelete(id); // elimina un producto
   } catch (error) {
