@@ -43,23 +43,22 @@ async function index(req, res) {
 }
 
 async function destroy(req, res) {
-  console.log("entre a destroy");
   try {
     console.log(req.params);
     const model = req.params.model;
     const id = req.params.id;
     const image = req.params.image;
 
-    console.log(model, id);
+    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
     const { data, error } = await supabase.storage.from("products").remove([`${image}`]);
     const Model = mongoose.model(model);
-    const resMongo = await Model.findByIdAndDelete({ id }); // elimina un producto
+    const resMongo = await Model.findByIdAndDelete(id); // elimina un producto
 
     console.log(resMongo, data);
   } catch (error) {
     return res.json(error);
   }
-   return res.json("ok");
+  return res.json("ok");
 }
 
 async function create(req, res) {
@@ -120,7 +119,7 @@ async function update(req, res) {
   });
   try {
     form.parse(req, async (err, fields, files) => {
-      if (files.image.size > 0) {
+      if (files.image) {
         console.log({ files });
         const ext = path.extname(files.image.filepath);
         const newFileName = `image_${Date.now()}${ext}`;
@@ -130,8 +129,8 @@ async function update(req, res) {
           .upload(newFileName, fs.createReadStream(files.image.filepath), {
             cacheControl: "3600",
             upsert: false,
-            contentType: files.image.mimetype, 
-            duplex: "half"
+            contentType: files.image.mimetype,
+            duplex: "half",
           });
 
         fields.image = newFileName;
