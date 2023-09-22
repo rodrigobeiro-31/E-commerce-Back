@@ -10,61 +10,83 @@ const { dirname } = require("path");
 const { createClient } = require("@supabase/supabase-js");
 
 async function tokens(req, res) {
-  console.log("paso por crate");
-  const token = req.body;
-  res.json({ token });
+  try {
+    console.log("paso por crate");
+    const token = req.body;
+    res.json({ token });
+  } catch (error) {
+    res.json(error);
+  }
 }
 
 async function indexAdmin(req, res) {
-  const admins = await Admin.find();
-  const filteredAdmins = admins.filter((admin) => admin.email !== "admin@doppios.com");
-  console.log(filteredAdmins);
-  return res.json(filteredAdmins);
+  try {
+    const admins = await Admin.find();
+    const filteredAdmins = admins.filter((admin) => admin.email !== "admin@doppios.com");
+    console.log(filteredAdmins);
+    return res.json(filteredAdmins);
+  } catch (error) {
+    res.json(error);
+  }
 }
+
 async function index(req, res) {
-  const data = req.params;
-  const model = data.params;
-  const Modelo = mongoose.model(model);
-  const resp = await Modelo.find();
-  res.json(resp);
+  try {
+    const data = req.params;
+    const model = data.params;
+    const Modelo = mongoose.model(model);
+    const resp = await Modelo.find();
+    res.json(resp);
+  } catch (error) {
+    res.json(erro);
+  }
 }
 
 async function destroy(req, res) {
-  console.log(req.params);
-  const model = req.params.model;
-  const id = req.params.id;
-  console.log(model, id);
-  const Model = mongoose.model(model);
-  const resp = await Model.findByIdAndUpdate(id, { $inc: { stock: -1 } }, { new: true }); // Utiliza $inc para decrementar en 1
-  res.json({ resp });
+  try {
+    console.log(req.params);
+    const model = req.params.model;
+    const id = req.params.id;
+    console.log(model, id);
+    const Model = mongoose.model(model);
+    const resp = await Model.findByIdAndUpdate(id, { $inc: { stock: -1 } }, { new: true }); // Utiliza $inc para decrementar en 1
+    res.json({ resp });
+  } catch (error) {
+    res.json(error);
+  }
 }
 
 async function create(req, res) {
-  const model = req.params.model;
+  try {
+    const model = req.params.model;
 
-  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-  const form = formidable({
-    multiples: true,
-    keepExtensions: true,
-  });
-  form.parse(req, async (err, fields, files) => {
-    const ext = path.extname(files.image.filepath);
-    const newFileName = `image_${Date.now()}${ext}`;
-    const { data, error } = await supabase.storage
-      .from("products")
-      .upload(newFileName, fs.createReadStream(files.image.filepath), {
-        cacheControl: "3600",
-        upsert: false,
-        contentType: files.image.mimetype,
-      });
-    fields.image = newFileName;
-    const Modelo = mongoose.model(model);
-    const resp = await Modelo.insertMany({ ...fields });
+    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+    const form = formidable({
+      multiples: true,
+      keepExtensions: true,
+    });
+    form.parse(req, async (err, fields, files) => {
+      const ext = path.extname(files.image.filepath);
+      const newFileName = `image_${Date.now()}${ext}`;
+      const { data, error } = await supabase.storage
+        .from("products")
+        .upload(newFileName, fs.createReadStream(files.image.filepath), {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: files.image.mimetype,
+        });
+      fields.image = newFileName;
+      const Modelo = mongoose.model(model);
+      const resp = await Modelo.insertMany({ ...fields });
 
-    console.log(resp);
-  });
+      console.log(resp);
+    });
 
-  res.json("ok");
+    res.json("ok");
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
+  }
 }
 
 async function store(req, res) {
@@ -82,40 +104,44 @@ async function store(req, res) {
 async function edit(req, res) {}
 
 async function update(req, res) {
-  try {
-    const model = req.params.model;
-    const id = req.params.id;
-    const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-    const form = formidable({
-      multiples: true,
-      keepExtensions: true,
-    });
-    // const update = req.body.sendInfo;
-    // const data = req.params;
-    form.parse(req, async (err, fields, files) => {
-      const ext = path.extname(files.image.filepath);
-      const newFileName = `image_${Date.now()}${ext}`;
-      const { data, error } = await supabase.storage
-        .from("products")
-        .upload(newFileName, fs.createReadStream(files.image.filepath), {
-          cacheControl: "3600",
-          upsert: false,
-          contentType: files.image.mimetype,
-        });
+  const model = req.params.model;
+  const id = req.params.id;
 
-      fields.image = newFileName;
+  const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+  const form = formidable({
+    multiples: true,
+    keepExtensions: true,
+  });
+  try {
+    form.parse(req, async (err, fields, files) => {
+      if (files.image.size > 0) {
+        console.log({ files });
+        const ext = path.extname(files.image.filepath);
+        const newFileName = `image_${Date.now()}${ext}`;
+
+        const { data, error } = await supabase.storage
+          .from("products")
+          .upload(newFileName, fs.createReadStream(files.image.filepath), {
+            cacheControl: "3600",
+            upsert: false,
+            contentType: files.image.mimetype,
+          });
+
+        fields.image = newFileName;
+      } else {
+        console.log("No image from front");
+      }
+
       const Modelo = mongoose.model(model);
       const resp = await Modelo.findByIdAndUpdate(id, { ...fields });
-
       console.log(resp);
     });
   } catch (error) {
-    cosole.log(error);
+    console.log("error-in save image o filds for front");
+    res.json({ error });
   }
   res.json("ok");
 }
-
-// Update the specified resource in storage.router.patch("/:model/:id/:patch", adminController.update
 
 module.exports = {
   indexAdmin,
