@@ -38,22 +38,28 @@ async function index(req, res) {
     const resp = await Modelo.find();
     res.json(resp);
   } catch (error) {
-    res.json(erro);
+    res.json(error);
   }
 }
 
 async function destroy(req, res) {
+  console.log("entre a destroy");
   try {
     console.log(req.params);
     const model = req.params.model;
     const id = req.params.id;
+    const image = req.params.image;
+
     console.log(model, id);
+    const { data, error } = await supabase.storage.from("products").remove([`${image}`]);
     const Model = mongoose.model(model);
-    const resp = await Model.findByIdAndUpdate(id, { $inc: { stock: -1 } }, { new: true }); // Utiliza $inc para decrementar en 1
-    res.json({ resp });
+    const resMongo = await Model.findByIdAndDelete({ id }); // elimina un producto
+
+    console.log(resMongo, data);
   } catch (error) {
     res.json(error);
   }
+  res.json("ok");
 }
 
 async function create(req, res) {
