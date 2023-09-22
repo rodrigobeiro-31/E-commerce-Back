@@ -57,9 +57,9 @@ async function destroy(req, res) {
 
     console.log(resMongo, data);
   } catch (error) {
-    res.json(error);
+    return res.json(error);
   }
-  res.json("ok");
+   return res.json("ok");
 }
 
 async function create(req, res) {
@@ -130,7 +130,8 @@ async function update(req, res) {
           .upload(newFileName, fs.createReadStream(files.image.filepath), {
             cacheControl: "3600",
             upsert: false,
-            contentType: files.image.mimetype,
+            contentType: files.image.mimetype, 
+            duplex: "half"
           });
 
         fields.image = newFileName;
