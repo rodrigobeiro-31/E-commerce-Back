@@ -44,22 +44,41 @@ const authController = {
   mail: async (req, res) => {
     const email = req.body.email;
     const subject = "cambio de contraseña de Doppios";
-    const text = " zapallo , para cambiar la clave toca aca ";
+    const html = `<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+          crossorigin="anonymous"
+        />
+         <title>Doppio's</title>
+      </head> <html>
+    <body>
+      <h3>HELLO, you are receiving this email, to obtain a new password.. your new password is...</h3>
+      <h1> Your new key is : ${clave} </h1> 
+      <h3>Thank you, we are waiting for you at Doppio's!!!</h3>
+      </body>
+  </html>`;
+
     const findUser = await User.find({ email });
+    const _id = findUser[0]._id;
 
     if (findUser[0].email === email) {
-      const id = findUser.id;
-      console.log("es usuario =>", findUser);
       const clave = `Doppio_${Date.now()}`;
-      console.log("nueva clave=>", clave);
-      const saveNwe = await User.updateOne({ id }, { $set: { password: clave } });
-      console.log("? DESPUES DEL UPDATE=>", saveNwe.modifiedCount);
-
-      // Mail(email, clave);
-      // console.log("se mando email a ", email);
-      //   console.log("con clave ", saveNwe);
-      // } else {
-      //   return console.log("no es cliente");
+      const encryptedPassword = await bcrypt.hash(clave, 10);
+      const saveNwe = await User.updateMany({ _id }, { $set: { password: encryptedPassword } });
+      const findUser = await User.find({ email });
+      console.log("nuevo ", findUser);
+      Mail(email, clave, html);
+      return res.json("clave cambiada y mensaje enviado");
+    } else {
+      console.log("no es cliente");
+      return res.json("no es cliente");
       // }
     }
   },

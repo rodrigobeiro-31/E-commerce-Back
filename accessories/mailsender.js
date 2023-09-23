@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-async function Mail(origin, clave) {
+async function Mail(origin, clave, html) {
   // Configura el transporte de correo electrónico
   const transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -16,14 +16,7 @@ async function Mail(origin, clave) {
     from: "info.doppios@gmail.com",
     to: origin, // Cambia esto por la dirección de correo electrónico del destinatario
     subject: "reset email from Doppio´s",
-    html: ` <html>
-        <body>
-          <p>Hola, este es un correo con un botón por que algun banana se olvido la clave</p>
-          <a href="https://localhost:3000/user/reset?password=${clave} " target="_blank">
-            <button> doppios </button>
-          </a>
-        </body>
-      </html>`,
+    html: html,
   };
   try {
     // Envía el correo electrónico
