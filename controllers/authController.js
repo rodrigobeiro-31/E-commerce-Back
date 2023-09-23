@@ -43,14 +43,25 @@ const authController = {
 
   mail: async (req, res) => {
     const email = req.body.email;
-
     const subject = "cambio de contraseña de Doppios";
     const text = " zapallo , para cambiar la clave toca aca ";
-    const clave = `Doppio_${Date.now()}`;
-    Mail(email, clave);
-    console.log("se mando email a ", email);
-    console.log("con clave ", clave);
+    const findUser = await User.find({ email });
+
+    if (findUser[0].email === email) {
+      const id = findUser.id;
+      console.log("es usuario =>", findUser);
+      const clave = `Doppio_${Date.now()}`;
+      console.log("nueva clave=>", clave);
+      const saveNwe = await User.updateOne({ id }, { $set: { password: clave } });
+      console.log("? DESPUES DEL UPDATE=>", saveNwe.modifiedCount);
+
+      // Mail(email, clave);
+      // console.log("se mando email a ", email);
+      //   console.log("con clave ", saveNwe);
+      // } else {
+      //   return console.log("no es cliente");
+      // }
+    }
   },
 };
-
 module.exports = authController;
