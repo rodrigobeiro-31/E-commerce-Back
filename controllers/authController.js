@@ -21,14 +21,6 @@ const authController = {
     const token = jwt.sign({ sub: user.id, email: user.email }, process.env.JWT_SECRET);
     res.json({ token: token, id: user._id });
   },
-  mail: async (req, res) => {
-    //email
-    const mail = req.body.mail;
-    const subject = "cambio de contraseña de Doppios";
-    const text = " zapallo , para cambiar la clave toca aca ";
-
-    Mail(mail, subject, c);
-  },
 
   admin: async (req, res) => {
     //Verificar usuario en DB
@@ -47,6 +39,16 @@ const authController = {
     //Genero token
     const token = jwt.sign({ sub: admin.id, email: admin.email }, process.env.JWT_SECRET);
     res.json({ token: token, firstname: admin.firstname, lastname: admin.lastname });
+  },
+
+  mail: async (req, res) => {
+    const email = req.body.email;
+
+    const subject = "cambio de contraseña de Doppios";
+    const text = " zapallo , para cambiar la clave toca aca ";
+
+    Mail(email, subject);
+    console.log("se mando email a ", email);
   },
 };
 
