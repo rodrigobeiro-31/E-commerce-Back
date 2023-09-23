@@ -104,7 +104,11 @@ async function store(req, res) {
   res.json({ resp });
 }
 //store guarda nuevos productos y create crea a nuevos usuarios.
-
+async function contact(req, res) {
+  console.log(req.body);
+  const resp = req.body;
+  res.json(resp);
+}
 // Show the form for editing the specified resource.
 async function edit(req, res) {}
 
@@ -153,6 +157,7 @@ module.exports = {
   indexAdmin,
   index,
   create,
+  contact,
   tokens,
   store,
   edit,

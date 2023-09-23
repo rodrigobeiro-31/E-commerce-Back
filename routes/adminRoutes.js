@@ -9,6 +9,7 @@ router.post("/create/:model", adminController.create); //suma +1 a los productos
 router.get("/store/:model/:id", adminController.store); ///registra usuarios
 // router.get("/editar/:id", userController.edit);
 router.post("/:model/:id", adminController.update);
+router.post("/contact", adminController.contact);
 router.delete("/:model/:id/:image", adminController.destroy); //borra los stock de productos
 router.get("/", adminController.indexAdmin);
 module.exports = router;
