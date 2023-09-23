@@ -44,6 +44,7 @@ const authController = {
   mail: async (req, res) => {
     const email = req.body.email;
     const subject = "cambio de contraseña de Doppios";
+    subjet = "reset email from Doppio´s";
     const html = `<!DOCTYPE html>
     <html lang="en">
       <head>

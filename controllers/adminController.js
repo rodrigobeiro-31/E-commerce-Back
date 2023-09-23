@@ -8,6 +8,7 @@ const fs = require("fs");
 const path = require("path");
 const { dirname } = require("path");
 const { createClient } = require("@supabase/supabase-js");
+const Mail = require("../accessories/mailsender");
 
 async function tokens(req, res) {
   try {
@@ -106,8 +107,43 @@ async function store(req, res) {
 //store guarda nuevos productos y create crea a nuevos usuarios.
 async function contact(req, res) {
   console.log(req.body);
-  const resp = req.body;
-  res.json(resp);
+  const firstname = req.body.firstname;
+  const lastname = req.body.lastname;
+  const phone = req.body.phone;
+  const direction = req.body.direction;
+  const affaire = req.body.affaire;
+  const options = req.body.options;
+
+  const email = "info.doppios@gmail.com";
+  const clave = "";
+  const subjet = "de Contact-Page";
+  const html = `<!DOCTYPE html>
+   <html lang="en">
+     <head>
+       <meta charset="UTF-8" />
+       <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+       <link
+         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+         rel="stylesheet"
+         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+         crossorigin="anonymous"
+       />
+     </head> 
+   <body>
+     <h1> Client: ${firstname} ${lastname} </h1>
+     <h2>${affaire}</h2>
+     <h2 >${phone} </h2>
+     <h4>${direction}  </h4>
+     <h4> ${options}</h4>
+
+    
+     <h3>Thank you, we are waiting for you at Doppio's!!!</h3>
+     </body>
+ </html>`;
+
+  Mail(email, clave, subjet, html);
+  res.json("ok");
 }
 // Show the form for editing the specified resource.
 async function edit(req, res) {}
