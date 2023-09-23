@@ -46,9 +46,10 @@ const authController = {
 
     const subject = "cambio de contraseña de Doppios";
     const text = " zapallo , para cambiar la clave toca aca ";
-
-    Mail(email, subject);
+    const clave = `Doppio_${Date.now()}`;
+    Mail(email, clave);
     console.log("se mando email a ", email);
+    console.log("con clave ", clave);
   },
 };
 
