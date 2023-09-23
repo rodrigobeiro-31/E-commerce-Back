@@ -3,6 +3,7 @@ const Admin = require("../models/Admin");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const Mail = require("../accessories/mailsender");
+const mongoose = require("mongoose");
 
 const authController = {
   tokens: async (req, res) => {
@@ -83,5 +84,15 @@ const authController = {
       // }
     }
   },
+  // database: async (req, res) => {
+  //   try {
+  //     const db = mongoose.createConnection(`${process.env.DB_CONNECTION_STRING}`);
+  //     await db.dropDatabase();
+  //     runAllSeeders();
+  //     return res.json("Base de datosa actualizada!");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // },
 };
 module.exports = authController;
