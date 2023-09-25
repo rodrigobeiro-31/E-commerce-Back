@@ -10,4 +10,4 @@ async function runAllSeeders() {
   process.exit();
 }
 
-runAllSeeders();
+module.exports = runAllSeeders;

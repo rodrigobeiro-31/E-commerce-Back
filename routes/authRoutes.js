@@ -9,5 +9,5 @@ const router = express.Router();
 router.post("/tokens", authController.tokens);
 router.post("/tokens/admin", authController.admin);
 router.post("/mail", authController.mail);
-// router.patch("/database", authController.database);
+router.patch("/database", authController.database);
 module.exports = router;
