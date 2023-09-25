@@ -80,7 +80,7 @@ const authController = {
       const saveNwe = await User.updateMany({ _id }, { $set: { password: encryptedPassword } });
       const findUser = await User.find({ email });
       console.log("nuevo ", findUser);
-      Mail(email, clave, html);
+      Mail(email, clave, subjet, html);
       return res.json("clave cambiada y mensaje enviado");
     } else {
       console.log("no es cliente");
