@@ -4,7 +4,6 @@ const pagesController = require("../controllers/pagesController");
 
 router.get("/", pagesController.showHome);
 
-router.get("*", function (req, res) {
-});
+router.get("*", function (req, res) {});
 
 module.exports = router;
