@@ -1,19 +1,18 @@
 const nodemailer = require("nodemailer");
-require("dotenv").config();
 
 async function Mail(origin, clave, subjet, html) {
   // Configura el transporte de correo electrónico
   const transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-      user: "info.doppios@gmail.com", // Cambia esto por tu dirección de correo electrónico de Gmail
-      pass: "oaxs rwok hbhq lqzr", // Cambia esto por tu contraseña de Gmail o usa una contraseña de aplicación si la tienes configurada
+      user: process.env.MAIL, // Cambia esto por tu dirección de correo electrónico de Gmail
+      pass: process.env.MAIL_PASS, // Cambia esto por tu contraseña de Gmail o usa una contraseña de aplicación si la tienes configurada
     },
   });
 
   // Define el correo electrónico que quieres enviar
   const mailOptions = {
-    from: "info.doppios@gmail.com",
+    from: process.env.MAIL,
     to: origin, // Cambia esto por la dirección de correo electrónico del destinatario
     subject: subjet,
     html: html,

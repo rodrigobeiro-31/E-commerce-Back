@@ -113,7 +113,7 @@ async function contact(req, res) {
   const affaire = req.body.affaire;
   const options = req.body.options;
 
-  const email = "info.doppios@gmail.com";
+  const email = process.env.MAIL;
   const clave = "";
   const subjet = "de Contact-Page";
   const html = `<!DOCTYPE html>
