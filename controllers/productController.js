@@ -98,10 +98,7 @@ async function update(req, res) {
           });
 
         fields.image = newFileName;
-      } else {
-        console.log("No image from front");
       }
-
       const resp = await Product.findByIdAndUpdate(id, { ...fields });
     });
   } catch (error) {
