@@ -24,7 +24,6 @@ async function indexAdmin(req, res) {
   try {
     const admins = await Admin.find();
     const filteredAdmins = admins.filter((admin) => admin.email !== "admin@doppios.com");
-    console.log(filteredAdmins);
     return res.json(filteredAdmins);
   } catch (error) {
     res.json(error);
