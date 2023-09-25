@@ -116,13 +116,38 @@ async function destroy(req, res) {
   try {
     const id = req.params.id;
     const image = req.body.image;
+    const dbImages = [
+      "espresso.png",
+      "capuccino.png",
+      "hot-chocolate.png",
+      "orange-chocolate-cake.png",
+      "apple-pie.png",
+      "carrot-cake.png",
+      "pastafrola.png",
+      "strawberry-cheesecake.png",
+      "baguette.png",
+      "croissant.png",
+      "quince-pastry.png",
+      "bougnat.png",
+      "danish.png",
+      "apple-roll.png",
+      "cinnamon-roll.png",
+      "wholegrain-bread.png",
+      "macatia.png",
+      "dark-roast-coffee.png",
+      "medium-roast-coffee.png",
+      "light-roast-coffee.png",
+    ];
 
     const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY, {
       auth: {
         persistSession: false,
       },
     });
-    const { data, error } = await supabase.storage.from("products").remove([`${image}`]);
+
+    if (!dbImages.includes(image)) {
+      const { data, error } = await supabase.storage.from("products").remove([`${image}`]);
+    }
     const resMongo = await Product.findByIdAndDelete(id); // elimina un producto
   } catch (error) {
     return res.json(error);
