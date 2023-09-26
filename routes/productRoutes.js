@@ -4,6 +4,7 @@ const productController = require("../controllers/productController");
 
 router.get("/filter/:category", productController.index);
 router.get("/:id", productController.show);
+router.get("/admin/:id", productController.showAdmin);
 router.post("/", productController.store);
 router.delete("/:id", productController.destroy);
 router.patch("/:id", productController.update);

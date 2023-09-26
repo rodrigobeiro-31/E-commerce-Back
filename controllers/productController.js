@@ -22,13 +22,26 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
-  const product = await Product.find({ slug: req.params.id });
-  const products = await Product.find({
-    category: product[0].category,
-    slug: { $ne: req.params.id },
-  });
+  try {
+    const product = await Product.find({ slug: req.params.id });
+    const products = await Product.find({
+      category: product[0].category,
+      slug: { $ne: req.params.id },
+    });
+  } catch (error) {
+    return res.json(error);
+  }
 
   return res.json({ product, products });
+}
+
+async function showAdmin(req, res) {
+  try {
+    const product = await Product.findById(req.params.id);
+    return res.json(product);
+  } catch (error) {
+    return res.json(error);
+  }
 }
 
 // Show the form for creating a new resource
@@ -158,6 +171,7 @@ async function destroy(req, res) {
 module.exports = {
   index,
   show,
+  showAdmin,
   create,
   store,
   edit,
