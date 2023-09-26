@@ -10,17 +10,7 @@ const { dirname } = require("path");
 const { createClient } = require("@supabase/supabase-js");
 const Mail = require("../accessories/mailsender");
 
-async function tokens(req, res) {
-  try {
-    console.log("paso por crate");
-    const token = req.body;
-    res.json({ token });
-  } catch (error) {
-    res.json(error);
-  }
-}
-
-async function indexAdmin(req, res) {
+async function index(req, res) {
   try {
     const admins = await Admin.find();
     const filteredAdmins = admins.filter((admin) => admin.email !== "admin@doppios.com");
@@ -29,74 +19,34 @@ async function indexAdmin(req, res) {
     res.json(error);
   }
 }
-
-async function index(req, res) {
-  // try {
-  //   const data = req.params;
-  //   const model = data.params;
-  //   const Modelo = mongoose.model(model);
-  //   const resp = await Modelo.find();
-  //   res.json(resp);
-  // } catch (error) {
-  //   res.json(error);
-  // }
+async function show(req, res) {
+  const admin = await Admin.findById(req.params.id);
+  return res.json(admin);
 }
 
 async function destroy(req, res) {
-  // try {
-  //   console.log(req.params);
-  //   const model = req.params.model;
-  //   const id = req.params.id;
-  //   const image = req.params.image;
-  //   const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-  //   const { data, error } = await supabase.storage.from("products").remove([`${image}`]);
-  //   const Model = mongoose.model(model);
-  //   const resMongo = await Model.findByIdAndDelete(id); // elimina un producto
-  //   console.log(resMongo, data);
-  // } catch (error) {
-  //   return res.json(error);
-  // }
-  // return res.json("ok");
+  try {
+    await Admin.findByIdAndRemove(req.params.id);
+    return res.json("Admin deleted");
+  } catch (error) {
+    return res.json(error);
+  }
 }
 
-async function create(req, res) {
-  // try {
-  //   const model = req.params.model;
-  //   const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-  //   const form = formidable({
-  //     multiples: true,
-  //     keepExtensions: true,
-  //   });
-  //   form.parse(req, async (err, fields, files) => {
-  //     const ext = path.extname(files.image.filepath);
-  //     const newFileName = `image_${Date.now()}${ext}`;
-  //     const { data, error } = await supabase.storage
-  //       .from("products")
-  //       .upload(newFileName, fs.createReadStream(files.image.filepath), {
-  //         cacheControl: "3600",
-  //         upsert: false,
-  //         contentType: files.image.mimetype,
-  //       });
-  //     fields.image = newFileName;
-  //     const Modelo = mongoose.model(model);
-  //     const resp = await Modelo.insertMany({ ...fields });
-  //     console.log(resp);
-  //   });
-  //   res.json("ok");
-  // } catch (error) {
-  //   console.log(error);
-  //   res.json({ error });
-  // }
-}
+async function create(req, res) {}
 
 async function store(req, res) {
-  // console.log(req.params);
-  // const model = req.params.model;
-  // const id = req.params.id;
-  // console.log(model, id);
-  // const Model = mongoose.model(model);
-  // const resp = await Model.findByIdAndUpdate(id, { $inc: { stock: +1 } }, { new: true }); // Utiliza $inc para sumar en 1
-  // res.json({ resp });
+  const { firstname, lastname, email, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const admin = new Admin({
+    firstname,
+    lastname,
+    email,
+    password: hashedPassword,
+    admin: true,
+  });
+  await admin.save();
+  return res.json(admin);
 }
 
 //store guarda nuevos productos y create crea a nuevos usuarios.
@@ -144,48 +94,38 @@ async function contact(req, res) {
 async function edit(req, res) {}
 
 async function update(req, res) {
-  // const model = req.params.model;
-  // const id = req.params.id;
-  // const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-  // const form = formidable({
-  //   multiples: true,
-  //   keepExtensions: true,
-  // });
-  // try {
-  //   form.parse(req, async (err, fields, files) => {
-  //     if (files.image) {
-  //       console.log({ files });
-  //       const ext = path.extname(files.image.filepath);
-  //       const newFileName = `image_${Date.now()}${ext}`;
-  //       const { data, error } = await supabase.storage
-  //         .from("products")
-  //         .upload(newFileName, fs.createReadStream(files.image.filepath), {
-  //           cacheControl: "3600",
-  //           upsert: false,
-  //           contentType: files.image.mimetype,
-  //           duplex: "half",
-  //         });
-  //       fields.image = newFileName;
-  //     } else {
-  //       console.log("No image from front");
-  //     }
-  //     const Modelo = mongoose.model(model);
-  //     const resp = await Modelo.findByIdAndUpdate(id, { ...fields });
-  //     console.log(resp);
-  //   });
-  // } catch (error) {
-  //   console.log("error-in save image o filds for front");
-  //   res.json({ error });
-  // }
-  // res.json("ok");
+  try {
+    const id = { _id: req.params.id };
+    const update = {
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+    };
+    const admin = await Admin.findOneAndUpdate(id, update, { returnOriginal: false });
+
+    if (req.body.password.length > 0) {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const updatePass = await Admin.findOneAndUpdate(
+        id,
+        {
+          password: hashedPassword,
+        },
+        { returnOriginal: false },
+      );
+    }
+
+    return res.json("Usuario actualizado");
+  } catch (error) {
+    console.log(error);
+    return res.json(error);
+  }
 }
 
 module.exports = {
-  indexAdmin,
   index,
+  show,
   create,
   contact,
-  tokens,
   store,
   edit,
   update,

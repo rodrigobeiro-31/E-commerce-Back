@@ -2,14 +2,10 @@ const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/adminController");
 
-router.post("/token", adminController.tokens); //busca tokens
-router.get("/:params", adminController.index); //busca todos los elementos de user ,product,ordesr, y lo que quieras
-router.post("/create/:model", adminController.create); //suma +1 a los productos con id
-// router.get("/:id", userController.show);
-router.get("/store/:model/:id", adminController.store); ///registra usuarios
-// router.get("/editar/:id", userController.edit);
-router.post("/:model/:id", adminController.update);
+router.get("/", adminController.index);
+router.get("/:id", adminController.show);
+router.post("/", adminController.store);
+router.patch("/:id", adminController.update);
 router.post("/contact", adminController.contact);
-router.delete("/:model/:id/:image", adminController.destroy); //borra los stock de productos
-router.get("/", adminController.indexAdmin);
+router.delete("/:id", adminController.destroy);
 module.exports = router;
