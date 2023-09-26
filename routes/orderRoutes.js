@@ -5,6 +5,7 @@ const { expressjwt: checkJwt } = require("express-jwt");
 
 router.get("/", orderController.index);
 router.get("/:id", orderController.show);
+router.get("/last/orders", orderController.lastOrders);
 router.post(
   "/",
   checkJwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),

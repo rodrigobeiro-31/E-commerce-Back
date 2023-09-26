@@ -14,6 +14,15 @@ async function show(req, res) {
   return res.json({ orders });
 }
 
+async function lastOrders(req, res) {
+  try {
+    const orders = await Order.find().sort({ createdAt: -1 }).limit(5);
+    return res.json({ orders });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // Show the form for creating a new resource
 async function create(req, res) {}
 
@@ -74,6 +83,7 @@ async function destroy(req, res) {}
 module.exports = {
   index,
   show,
+  lastOrders,
   create,
   store,
   edit,
