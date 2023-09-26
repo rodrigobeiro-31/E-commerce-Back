@@ -11,7 +11,6 @@ const adminSeeder = require("../seeders/adminSeeder");
 
 const authController = {
   tokens: async (req, res) => {
-    console.log(req.body);
     //Verificar usuario en DB
     const user = await User.findOne({ email: req.body.email });
 
@@ -48,8 +47,10 @@ const authController = {
 
   mail: async (req, res) => {
     const email = req.body.email;
-    const subject = "cambio de contraseña de Doppios";
-    subjet = "reset email from Doppio´s";
+    // const subject = "cambio de contraseña de Doppios";
+    const subject = "reset email from Doppio´s";
+    const clave = `Doppio_${Date.now()}`;
+    const encryptedPassword = await bcrypt.hash(clave, 10);
     const html = `<!DOCTYPE html>
     <html lang="en">
       <head>
@@ -72,15 +73,15 @@ const authController = {
   </html>`;
 
     const findUser = await User.find({ email });
-    const _id = findUser[0]._id;
-
-    if (findUser[0].email === email) {
-      const clave = `Doppio_${Date.now()}`;
-      const encryptedPassword = await bcrypt.hash(clave, 10);
-      const saveNwe = await User.updateMany({ _id }, { $set: { password: encryptedPassword } });
-      const findUser = await User.find({ email });
-      console.log("nuevo ", findUser);
-      Mail(email, clave, subjet, html);
+    if (findUser) {
+      const updatePass = await User.findOneAndUpdate(
+        { email },
+        {
+          password: encryptedPassword,
+        },
+        { returnOriginal: false },
+      );
+      Mail(email, clave, subject, html);
       return res.json("clave cambiada y mensaje enviado");
     } else {
       console.log("no es cliente");
