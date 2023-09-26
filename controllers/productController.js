@@ -28,11 +28,10 @@ async function show(req, res) {
       category: product[0].category,
       slug: { $ne: req.params.id },
     });
+    return res.json({ product, products });
   } catch (error) {
     return res.json(error);
   }
-
-  return res.json({ product, products });
 }
 
 async function showAdmin(req, res) {
