@@ -18,17 +18,14 @@ async function Mail(origin, clave, subject, html) {
     subject: subject,
     html: html,
   };
-  try {
-    // Envía el correo electrónico
-    await transporter.sendMail(mailOptions, (err, res) => {
-      if (err) {
-        console.error("Error al enviar el correo electrónico:", err);
-      } else {
-        console.log("Correo electrónico enviado con éxito:");
-      }
-    });
-  } catch (error) {
-    console.error("Error al enviar el correo electrónico:", error);
-  }
+
+  // Envía el correo electrónico
+  await transporter.sendMail(mailOptions, (err, res) => {
+    if (err) {
+      console.log("Error al enviar el correo electrónico:", err);
+    } else {
+      console.log("Correo electrónico enviado con éxito:");
+    }
+  });
 }
 module.exports = Mail;
