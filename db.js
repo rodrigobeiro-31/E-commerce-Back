@@ -17,5 +17,13 @@ mongoose.connect(process.env.DB_CONNECTION_STRING, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+mongoose.connection.on("connected", () => {
+  console.log("Conectado a la base de datos remota");
+});
+
+// Manejo de errores de conexión
+mongoose.connection.on("error", (err) => {
+  console.error("Error de conexión a la base de datos:", err);
+});
 
 module.exports = { mongoose, Schema };
