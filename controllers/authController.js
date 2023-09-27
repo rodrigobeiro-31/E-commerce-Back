@@ -47,8 +47,7 @@ const authController = {
 
   mail: async (req, res) => {
     const email = req.body.email;
-    // const subject = "cambio de contraseña de Doppios";
-    const subject = "reset email from Doppio´s";
+    const subject = "Reset email from Doppio´s";
     const clave = `Doppio_${Date.now()}`;
     const encryptedPassword = await bcrypt.hash(clave, 10);
     const html = `<!DOCTYPE html>
@@ -66,9 +65,10 @@ const authController = {
          <title>Doppio's</title>
       </head> <html>
     <body>
-      <h3>HELLO, you are receiving this email, to obtain a new password.. your new password is...</h3>
-      <h1> Your new key is : ${clave} </h1> 
-      <h3>Thank you, we are waiting for you at Doppio's!!!</h3>
+      <h2>Dear,</h2>
+      <h3>We wanted to inform you that your password for your account has been successfully changed.</h3>
+      <h3>Your new password is :<span style="color:blue"> ${clave} </span>, please make sure to securely store it.</h3> 
+      <h3>Thank you for choosing Doppio's! We look forward to welcoming you soon.</h3>
       </body>
   </html>`;
 
